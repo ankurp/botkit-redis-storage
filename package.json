@@ -1,0 +1,16 @@
+{
+  "name": "botkit-redis-storage",
+  "version": "1.0.0",
+  "description": "Redis store for Botkit bot storage. This is a variant of the simple storage and store data in the redis server specified.",
+  "main": "index.js",
+  "repository": "https://github.com/ankurp/botkit-redis-storage",
+  "author": "Ankur Patel <ankur.patel@ymail.com> (https://encoredevlabs.com)",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": ">= 10"
+  },
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
+}
