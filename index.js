@@ -11,25 +11,25 @@ module.exports = function({ port, hostname, options } = {}) {
   
   const store = (type) => ({
     get: async function(id, cb = () => {}) {
-      const key = id.startsWith(type) ? id : `${type}-${id}`;
+      const key = id.startsWith(`slack:${type}:`) ? id : `slack:${type}:${id}`;
       const result = await client.hgetallAsync(key);
       cb(result);
       return result;
     },
     save: async function(data, cb = () => {}) {
       for (let key in data) {
-        await client.hsetAsync(`${type}-${data.id}`, key, data[key]);
+        await client.hsetAsync(`slack:${type}:${data.id}`, key, data[key]);
       }
       cb();
       return data;
     },
     delete: async function(id, cb = () => {}) {
-      await client.hdelAsync(`${type}-${id}`);
+      await client.hdelAsync(`slack:${type}:${id}`);
       cb();
       return id;
     },
     all: async function(cb = () => {}) {
-      const keys = await client.keysAsync(`${type}-*`);
+      const keys = await client.keysAsync(`slack:${type}:*`);
       const result = await Promise.all(keys.map(k => this.get(k)));
       cb(result);
       return result;
